@@ -26,6 +26,9 @@ const theme = createMuiTheme({
       dark: '#7c8500',
       contrastText: '#000'
     }
+  },
+  typography: {
+    useNextVariants: true
   }
 })
 
@@ -52,4 +55,4 @@ class App extends Component {
 
 export default App
 
-// 4:28:28
+// 5:04:28
