@@ -4,7 +4,7 @@ import axios from 'axios'
 
 import Scream from '../components/Scream'
 
-export class home extends Component {
+class home extends Component {
   state = {
     screams: null
   }
@@ -28,7 +28,7 @@ export class home extends Component {
       <p>Loading...</p>
     )
     return (
-      <Grid container spacing={16}>
+      <Grid container spacing={10}>
         <Grid item sm={8} xs={12}>
           {recentScreamsMarkup}
         </Grid>
