@@ -4,29 +4,35 @@ import { Link } from 'react-router-dom'
 
 //MUI stuff
 import Card from '@material-ui/core/Card'
-// import CardActionArea from '@material-ui/core/CardActionArea'
-// import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
 
 const styles = {
   card: {
-    display: 'flex'
+    display: 'flex',
+    marginBottom: 20
+  },
+  image: {
+    minWidth: 200
+  },
+  content: {
+    padding: 25,
+    objectFit: 'cover'
   }
 }
 
 class Scream extends Component {
   render() {
     const {
-      // classes,
+      classes,
       scream: { body, createdAt, userImage, userHandle }
     } = this.props
 
     return (
-      <Card>
+      <Card className={classes.card}>
         <CardMedia image={userImage} title="Profile Image" />
-        <CardContent>
+        <CardContent className={classes.content}>
           <Typography variant="h5" component={Link} to={`/users/${userHandle}`} color="primary">
             {userHandle}
           </Typography>
