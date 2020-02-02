@@ -3,12 +3,14 @@ import withStyles from '@material-ui/core/styles/withStyles'
 import PropTypes from 'prop-types'
 import logo_large from '../images/logo_large.png'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 //MUI stuff
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 const styles = {
   form: {
@@ -25,7 +27,16 @@ const styles = {
     margin: '10px auto 10px auto'
   },
   button: {
-    marginTop: '25px'
+    marginTop: '25px',
+    position: 'relative'
+  },
+  customError: {
+    color: 'red',
+    fontSize: '0.8rem',
+    marginTop: '10px'
+  },
+  progress: {
+    position: 'absolute'
   }
 }
 
@@ -36,7 +47,7 @@ class login extends Component {
       email: '',
       password: '',
       loading: false,
-      errrors: {}
+      errors: {}
     }
   }
   handleSubmit = e => {
@@ -74,12 +85,13 @@ class login extends Component {
   render() {
     const { classes } = this.props
     const { errors, loading } = this.state
+
     return (
       <Grid container className={classes.form}>
         <Grid item sm />
         <Grid item sm>
           <img src={logo_large} alt="S logo" className={classes.image_large} />
-          <Typography variant="h1" className={classes.pageTitle}>
+          <Typography variant="h2" className={classes.pageTitle}>
             Login
           </Typography>
           <form noValidate onSubmit={this.handleSubmit}>
@@ -107,9 +119,19 @@ class login extends Component {
               onChange={this.handleChange}
               fullWidth
             />
-            <Button type="submit" variant="contained" color="primary" className={classes.button}>
+            {errors.general && (
+              <Typography variant="body2" className={classes.customError}>
+                {errors.general}
+              </Typography>
+            )}
+            <Button type="submit" variant="contained" color="primary" className={classes.button} disabled={loading}>
               Log In
+              {loading && <CircularProgress size={30} className={classes.progress} />}
             </Button>
+            <br />
+            <small>
+              Don't have an account yet? Sign up <Link to="/signup">here</Link>
+            </small>
           </form>
         </Grid>
         <Grid item sm />
