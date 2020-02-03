@@ -5,6 +5,8 @@ import logo_large from '../images/logo_large.png'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 
+import themeFile from '../util/theme'
+
 //MUI stuff
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
@@ -12,33 +14,10 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
-const styles = {
-  form: {
-    textAlign: 'center'
-  },
-  image_large: {
-    width: '50px',
-    margin: '10px auto 20px auto'
-  },
-  pageTitle: {
-    margin: '10px auto 10px auto'
-  },
-  textField: {
-    margin: '10px auto 10px auto'
-  },
-  button: {
-    marginTop: '25px',
-    position: 'relative'
-  },
-  customError: {
-    color: 'red',
-    fontSize: '0.8rem',
-    marginTop: '10px'
-  },
-  progress: {
-    position: 'absolute'
-  }
-}
+// const styles = theme => ({
+//   ...theme
+// })
+const styles=themeFile
 
 class login extends Component {
   constructor() {
@@ -63,6 +42,7 @@ class login extends Component {
       .post('/login', userData)
       .then(res => {
         console.log(res.data)
+        localStorage.setItem('FirebaseIdToken', `Bearer ${res.data.token}`)
         this.setState({
           loading: false
         })
@@ -100,7 +80,7 @@ class login extends Component {
               name="email"
               type="email"
               label="Email"
-              className={classes.TextField}
+              className={classes.textField}
               helperText={errors.email}
               error={errors.email ? true : false}
               value={this.state.email}
@@ -112,7 +92,7 @@ class login extends Component {
               name="password"
               type="password"
               label="Password"
-              className={classes.TextField}
+              className={classes.textField}
               helperText={errors.password}
               error={errors.password ? true : false}
               value={this.state.password}
