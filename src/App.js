@@ -6,6 +6,10 @@ import createMuiTheme from '@material-ui/core/styles/createMuiTheme'
 import themeFile from './util/theme'
 import jwtDecode from 'jwt-decode'
 
+//Redux
+import { Provider } from 'react-redux'
+import store from './redux/store'
+
 // Components
 import Navbar from './components/Navbar'
 import AuthRoute from './util/AuthRoute'
@@ -18,7 +22,7 @@ import signup from './pages/signup'
 const theme = createMuiTheme(themeFile)
 
 let authenticated
-const token = localStorage.FirebaseIdToken
+const token = localStorage.FBIdToken
 if (token) {
   const decodedToken = jwtDecode(token)
   if (decodedToken.exp * 1000 < Date.now()) {
@@ -33,7 +37,7 @@ class App extends Component {
   render() {
     return (
       <MuiThemeProvider theme={theme}>
-        <div className="App">
+        <Provider store={store}>
           <Router>
             <Navbar />
             <div className="container">
@@ -44,7 +48,7 @@ class App extends Component {
               </Switch>
             </div>
           </Router>
-        </div>
+        </Provider>
       </MuiThemeProvider>
     )
   }
@@ -52,4 +56,4 @@ class App extends Component {
 
 export default App
 
-// 6:05:17
+// 6:41:17
